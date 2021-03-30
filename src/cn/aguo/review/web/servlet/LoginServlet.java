@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        if (checkcode !=  null||checkcode.equalsIgnoreCase(au.getChecknumber())){
+        if (checkcode.equalsIgnoreCase(au.getChecknumber())){
             UserService us = new UserServiceImpl();
             if (us.loginAdmin(au)){
                 request.getSession().setAttribute("admin",au);

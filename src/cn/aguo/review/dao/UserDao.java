@@ -29,4 +29,8 @@ public interface UserDao {
     public User findId(int id);
 
     public AdminUser loginAdmin(AdminUser au);
+
+    public int countUsernum();
+
+    public List<User> findPageUsers(int currentPageNumber, int rows);
 }

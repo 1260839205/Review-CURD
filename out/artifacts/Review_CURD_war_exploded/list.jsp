@@ -110,7 +110,7 @@
                 <th>操作</th>
             </tr>
 
-            <c:forEach items="${users}" var="user" varStatus="number">
+            <c:forEach items="${requestScope.pbu.tList}" var="user" varStatus="number">
             <tr>
                 <td><input type="checkbox" name="uid" value="${user.id}"></td>
                 <td>${user.id}</td>
@@ -127,24 +127,37 @@
     </form>
     <nav aria-label="...">
         <ul class="pagination">
-            <li class="disabled">
-      <span>
-        <span aria-hidden="true">&laquo;</span>
-      </span>
+            <c:if test="${requestScope.pbu.currentPageNumber == 1}">
+                <li class="disabled">
+            </c:if>
+            <c:if test="${requestScope.pbu.currentPageNumber > 1}">
+                <li>
+            </c:if>
+            <a href="${pageContext.request.contextPath}/listUserServlet?currentPageNumber=${requestScope.pbu.currentPageNumber - 1}&rows=5">&laquo;</a>
             </li>
+            <c:forEach begin="1" end="${requestScope.pbu.totalPageNumber}" var="i" step="1">
+            <c:if test="${requestScope.pbu.currentPageNumber == i}">
             <li class="active">
-                <span>1 <span class="sr-only">(current)</span></span>
+                <a href="${pageContext.request.contextPath}/listUserServlet?currentPageNumber=${i}&rows=5">${i} <span class="sr-only">(current)</span></a>
             </li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
+            </c:if>
+            <c:if test="${requestScope.pbu.currentPageNumber != i}">
             <li>
-                <a href="#" aria-label="Next">
+                <a href="${pageContext.request.contextPath}/listUserServlet?currentPageNumber=${i}&rows=5">${i} <span class="sr-only">(current)</span></a>
+            </li>
+            </c:if>
+            </c:forEach>
+            <c:if test="${requestScope.pbu.currentPageNumber == requestScope.pbu.totalPageNumber}">
+            <li class="disabled">
+            </c:if>
+            <c:if test="${requestScope.pbu.currentPageNumber < requestScope.pbu.totalPageNumber}">
+            <li>
+            </c:if>
+                <a href="${pageContext.request.contextPath}/listUserServlet?currentPageNumber=${requestScope.pbu.currentPageNumber >= requestScope.pbu.totalPageNumber ? requestScope.pbu.currentPageNumber:requestScope.pbu.currentPageNumber + 1}&rows=5" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
-            <span style="font-size: 24px;">共有16条数据，共4页</span>
+            <span style="font-size: 24px;">共有${requestScope.pbu.totalCount}条数据，共${requestScope.pbu.totalPageNumber}页</span>
         </ul>
     </nav>
 </div>

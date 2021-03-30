@@ -3,6 +3,7 @@ package cn.aguo.review.service.impl;
 import cn.aguo.review.dao.UserDao;
 import cn.aguo.review.dao.impl.UserDaoImpl;
 import cn.aguo.review.domain.AdminUser;
+import cn.aguo.review.domain.PageBean;
 import cn.aguo.review.domain.User;
 import cn.aguo.review.service.UserService;
 
@@ -58,5 +59,31 @@ public class UserServiceImpl implements UserService {
             flog = false;
         }
         return flog;
+    }
+
+    @Override
+    public PageBean<User> findUserByPage(String _currentPageNumber, String _rows) {
+
+        //将浏览器请求的数据转换为目标格式
+        int currentPageNumber = Integer.parseInt(_currentPageNumber);
+        int rows = Integer.parseInt(_rows);
+
+        if (currentPageNumber <= 0){
+            currentPageNumber = 1;
+            rows = 5;
+        }
+
+        //查询所有数据的总条数
+        int count = ud.countUsernum();
+
+        //需要查询到的数据
+        List<User> ulist = ud.findPageUsers(currentPageNumber,rows);
+
+        //查询总页码数量
+        int totalPageNumber = count % rows == 0 ? count / rows : (count / rows) + 1;
+
+        //数据存入PageBean<User>建立存储对象
+        PageBean<User> pbu= new PageBean<User>(count,totalPageNumber,rows,currentPageNumber,ulist);
+        return pbu;
     }
 }

@@ -77,4 +77,22 @@ public class UserDaoImpl implements UserDao {
         }
 
     }
+
+    @Override
+    public int countUsernum() {
+        return findAll().size();
+    }
+
+    @Override
+    public List<User> findPageUsers(int currentPageNumber, int rows) {
+        //定义sql
+        String sql = "select * from info limit ?,?";
+
+        //获取起始索引
+        int frist = (currentPageNumber - 1 ) * rows;
+
+        List<User> ulsit = template.query(sql, new BeanPropertyRowMapper<>(User.class), frist, rows);
+
+        return ulsit;
+    }
 }

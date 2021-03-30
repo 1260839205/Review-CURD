@@ -1,6 +1,7 @@
 package cn.aguo.review.service;
 
 import cn.aguo.review.domain.AdminUser;
+import cn.aguo.review.domain.PageBean;
 import cn.aguo.review.domain.User;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface UserService {
     public User findId(String id);
 
     public boolean loginAdmin(AdminUser au);
+
+    PageBean<User> findUserByPage(String currentPageNumber, String rows);
 }
