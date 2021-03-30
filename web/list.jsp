@@ -125,14 +125,16 @@
             </c:forEach>
         </table>
     </form>
-    <nav aria-label="Page navigation">
+    <nav aria-label="...">
         <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
+            <li class="disabled">
+      <span>
+        <span aria-hidden="true">&laquo;</span>
+      </span>
             </li>
-            <li><a href="#">1</a></li>
+            <li class="active">
+                <span>1 <span class="sr-only">(current)</span></span>
+            </li>
             <li><a href="#">2</a></li>
             <li><a href="#">3</a></li>
             <li><a href="#">4</a></li>
@@ -142,6 +144,7 @@
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
+            <span style="font-size: 24px;">共有16条数据，共4页</span>
         </ul>
     </nav>
 </div>
