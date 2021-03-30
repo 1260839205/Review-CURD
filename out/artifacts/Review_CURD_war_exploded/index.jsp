@@ -17,8 +17,8 @@
   </head>
   <body>
   <div align="center">
-    <c:if test="${sessionScope.admin != ''}">
-      <div>
+    <c:if test="${sessionScope.admin != null}">
+      <div style="float: left;">
         您好！欢迎登陆${sessionScope.admin.username}!!!
       </div>
     </c:if>
