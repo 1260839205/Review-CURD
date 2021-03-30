@@ -20,10 +20,9 @@ import java.util.List;
 @WebServlet("/listUserServlet")
 public class ListUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService us = new UserServiceImpl();
-        List<User> all = us.findAll();
-        request.setAttribute("users",all);
-        request.getRequestDispatcher("/list.jsp").forward(request,response);
+        //1.设置编码
+        request.setCharacterEncoding("utf-8");
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
