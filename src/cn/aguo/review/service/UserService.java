@@ -5,6 +5,7 @@ import cn.aguo.review.domain.PageBean;
 import cn.aguo.review.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 石成果
@@ -24,5 +25,5 @@ public interface UserService {
 
     public boolean loginAdmin(AdminUser au);
 
-    PageBean<User> findUserByPage(String currentPageNumber, String rows);
+    PageBean<User> findUserByPage(String currentPageNumber, String rows , Map<String,String[]> parame);
 }

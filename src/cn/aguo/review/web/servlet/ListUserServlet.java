@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author 石成果
@@ -27,6 +29,15 @@ public class ListUserServlet extends HttpServlet {
         //2.接收当前页码和每页展示数量
         String _currentPageNumber = request.getParameter("currentPageNumber");
         String _rows = request.getParameter("rows");
+        Map<String, String[]> parame = request.getParameterMap();
+
+        /****************程序测试*******************/
+        /*Set<String> keys = parame.keySet();
+
+        for (String key : keys) {
+            System.out.println(key);
+        }*/
+        /****************程序测试*******************/
 
         if ("".equals(_currentPageNumber) || _currentPageNumber == null){
             _currentPageNumber = "1";
@@ -35,7 +46,7 @@ public class ListUserServlet extends HttpServlet {
 
         //3.每页展示查询
         UserService us = new UserServiceImpl();
-        PageBean<User> pbu = us.findUserByPage(_currentPageNumber,_rows);
+        PageBean<User> pbu = us.findUserByPage(_currentPageNumber,_rows,parame);
 
         //存储到request域中
         request.setAttribute("pbu",pbu);

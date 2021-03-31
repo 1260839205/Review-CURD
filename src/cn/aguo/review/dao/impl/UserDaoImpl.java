@@ -8,7 +8,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author 石成果
@@ -25,8 +28,6 @@ public class UserDaoImpl implements UserDao {
 
         //查询
         List<User> listUser = template.query(sql,new BeanPropertyRowMapper<>(User.class));
-        System.out.println("UserDaoImpl执行了");
-        System.out.println(listUser.get(0).toString());
         return listUser;
     }
 
@@ -79,18 +80,31 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int countUsernum() {
-        return findAll().size();
-    }
-
-    @Override
-    public List<User> findPageUsers(int currentPageNumber, int rows) {
+    public List<User> findPageUsers(int currentPageNumber, int rows , Map<String ,String[]> parame) {
         //定义sql
-        String sql = "select * from info limit ?,?";
+        String sql = "select * from info where 1 = 1 ";
+        StringBuilder sb = new StringBuilder(sql);
+        List<String> list = new ArrayList<>();
 
         //获取起始索引
         int frist = (currentPageNumber - 1 ) * rows;
 
+        //遍历parame并且排除currentPageNumber和rows
+        Set<String> parameset = parame.keySet();
+        for (String key : parameset) {
+            if ("currentPageNumber".equals(key) || "rows".equals(key)){
+                continue;
+            }
+            String value = parame.get(key)[0];
+            //确认传过来的值是否有效,有效则获取
+            System.out.println(key);
+            if (value != null && !"".equals(value)){
+                sb.append("and "+key+" like '%"+value+"%' ");
+            }
+        }
+        sb.append("limit ?,?");
+        sql = sb.toString();
+        System.out.println(sql);
         List<User> ulsit = template.query(sql, new BeanPropertyRowMapper<>(User.class), frist, rows);
 
         return ulsit;

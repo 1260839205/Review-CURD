@@ -8,6 +8,7 @@ import cn.aguo.review.domain.User;
 import cn.aguo.review.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 石成果
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageBean<User> findUserByPage(String _currentPageNumber, String _rows) {
+    public PageBean<User> findUserByPage(String _currentPageNumber, String _rows , Map<String,String[]> parame) {
 
         //将浏览器请求的数据转换为目标格式
         int currentPageNumber = Integer.parseInt(_currentPageNumber);
@@ -74,10 +75,10 @@ public class UserServiceImpl implements UserService {
         }
 
         //查询所有数据的总条数
-        int count = ud.countUsernum();
+        int count = ud.findPageUsers(currentPageNumber,rows,parame).size();
 
         //需要查询到的数据
-        List<User> ulist = ud.findPageUsers(currentPageNumber,rows);
+        List<User> ulist = ud.findPageUsers(currentPageNumber,rows,parame);
 
         //查询总页码数量
         int totalPageNumber = count % rows == 0 ? count / rows : (count / rows) + 1;

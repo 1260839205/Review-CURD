@@ -4,6 +4,7 @@ import cn.aguo.review.domain.AdminUser;
 import cn.aguo.review.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 石成果
@@ -30,7 +31,5 @@ public interface UserDao {
 
     public AdminUser loginAdmin(AdminUser au);
 
-    public int countUsernum();
-
-    public List<User> findPageUsers(int currentPageNumber, int rows);
+    public List<User> findPageUsers(int currentPageNumber, int rows, Map<String,String[]> parame);
 }
