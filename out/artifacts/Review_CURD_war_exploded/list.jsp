@@ -76,18 +76,18 @@
     </c:if>
     <h3 style="text-align: center">用户信息列表</h3>
     <div style="float:left;">
-        <form class="form-inline">
+        <form class="form-inline" action="${pageContext.request.contextPath}/listUserServlet" method="post">
             <div class="form-group">
                 <label for="name">姓名</label>
-                <input type="text" class="form-control" id="name" placeholder="王五">
+                <input type="text" class="form-control" id="name" name="name" placeholder="王五">
             </div>
             <div class="form-group">
                 <label for="hometown">籍贯</label>
-                <input type="email" class="form-control" id="hometown" placeholder="浙江">
+                <input type="text" class="form-control" id="hometown" name="hometown" placeholder="浙江">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="12138@gmail.com">
+                <input type="text" class="form-control" id="email" name="email" placeholder="12138@gmail.com">
             </div>
             <button type="submit" class="btn btn-default">查询</button>
         </form>

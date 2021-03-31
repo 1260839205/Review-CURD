@@ -1,4 +1,7 @@
+<%@ page import="java.util.List" %>
+<%@ page import="cn.aguo.review.domain.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 网页使用的语言 -->
 <html lang="zh-CN">
 <head>
@@ -27,7 +30,7 @@
             var email = document.getElementById("email").value;
             if ((name == '' || name == undefined || name == null || name == ' ')||(age == '' || age == undefined || age == null || age == ' ' )
             ||(qq == '' || qq == undefined || qq == null || qq == ' ')||(email == '' || email == undefined || email == null || email == ' ')){
-                alert("您输入的值有缺省，请检查后重新输入")
+                alert("您输入的值有缺省，请检查后重新输入");
                 var event = event || window.event;
                 event.preventDefault(); // 兼容标准浏览器
                 window.event.returnValue = false;
